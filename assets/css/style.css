@@ -1,0 +1,25 @@
+.position-fixed-button {
+  position: fixed;
+  right: 0;
+  margin-right: 20px;
+  color: #000;
+}
+
+@keyframes loading {
+  from {
+    background-position: 200% 0;
+  }
+
+  to {
+    background-position: -200% 0;
+  }
+}
+
+
+.skeleton {
+  background: linear-gradient(90deg, #fff 10%, #f0f0f0 50%, #fff 90%);
+  background-size: 200% 100%;
+  animation: loading 2s ease-in-out infinite alternate;
+  border-radius: 12px;
+  color: transparent;
+}
