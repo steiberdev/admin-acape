@@ -334,7 +334,7 @@ function organizarPorDia(datos) {
         // Sumar los valores al objeto del día correspondiente
         agrupados[fechaClave].total_recibido += item.total_recibido || 0;
         agrupados[fechaClave].value += item.value || 0;
-        agrupados[fechaClave].egreso += item.egreso?item.egreso:0 - item.value_egresos?item.value_egresos:0;
+        agrupados[fechaClave].egreso += item.egreso?item.egreso:0;
         agrupados[fechaClave].value_egresos += item.value_egresos || 0;
 
         // Agregar la entrada individual
@@ -383,12 +383,14 @@ if (finalCajas_log) {
 
 
   finalCajas_log.innerHTML = simpleCaja.map(ch => {
+    console.log(ch)
+
     return `<div class="card mt-2">
             <div class="card-header pb-0 px-3">
               <h6 class="mb-0">${formatearFecha(ch.cerrada)}</h6>
-              <p class="mb-0 text-sm">Total recibido: $${formatNumber(ch.total_recibido)}</p>
-              <p class="mb-0 text-sm">Total Gastos: $${formatNumber(ch.egreso + ch.value_egresos?ch.value_egresos:0)}</p>
-              <p class="mb-0 text-sm">Total Entregado: $${formatNumber(ch.value)}</p>
+              <p class="mb-0 text-dark font-weight-bold">Total recibido: $${formatNumber(ch.total_recibido)}</p>
+              <p class="mb-0 text-dark font-weight-bold">Total Gastos: $${formatNumber(ch.egreso + ch.value_egresos)}</p>
+              <p class="mb-0 text-dark font-weight-bold">Total Entregado: $${formatNumber(ch.value)}</p>
             </div>
             <div class="card-body pt-4 p-3">
               <ul class="list-group">
@@ -401,7 +403,7 @@ if (finalCajas_log) {
                     <div class="d-flex flex-column">
                       <h6 class="mb-3 text-sm">Cerrada por ${item.closedByName}</h6>
                       <span class="mb-2 text-xs">Total recibido: <span class="text-dark font-weight-bold ms-sm-2">$ ${formatNumber(item.total_recibido)}</span></span>
-                      <span class="mb-2 text-xs">Total Gastos: <span class="text-dark ms-sm-2 font-weight-bold">$ ${formatNumber(item.egreso + item.value_egresos?item.value_egresos:0)}</span></span>
+                      <span class="mb-2 text-xs">Total Gastos: <span class="text-dark ms-sm-2 font-weight-bold">$ ${formatNumber(item.egreso?item.egreso:0 + item.value_egresos?item.value_egresos:0)}</span></span>
                       <span class="text-xs">Total Entregado: <span class="text-dark ms-sm-2 font-weight-bold"> $ ${formatNumber(item.value - item.starting)}</span></span>
                     </div>
                     <div class="ms-auto text-end">
