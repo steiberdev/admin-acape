@@ -3,7 +3,7 @@ class serverConnect {
     this.user = user;
     this.password = password;
     this.api = !axios?null:axios.create({
-        baseURL: "https://whale-steady-lioness.ngrok-free.app",
+        baseURL: "https://amazing-morally-yak.ngrok-free.app",
         headers: {
           "ngrok-skip-browser-warning": "true"
         }
