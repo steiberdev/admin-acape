@@ -21,7 +21,7 @@
   <link rel="stylesheet" href="././assets/css/style.css">
 </head>
 
-<body class="g-sidenav-show  bg-gray-100 container">
+<body class="g-sidenav-show  bg-gray-100 container" nameset="produccion">
   <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-radius-lg fixed-start ms-2  bg-white my-2" id="sidenav-main">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-dark opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
@@ -116,22 +116,8 @@
           <h6 class="mb-0">Registros Actuales</h6>
         </div>
         <div class="card-body pt-4 p-3">
-          <ul class="list-group">
-            <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
-              <div class="d-flex flex-column">
-                <h6 class="mb-3">Registro: 26 FEB 2025</h6>
-                <span class="mb-2">Gastos Indirectos: <span class="text-danger font-weight-bold ms-sm-2">$ 205,000.00</span></span>
-                <span class="mb-2">Gastos Materia Prima: <span class="text-danger font-weight-bold ms-sm-2">$ 205,000.00</span></span>
-                <span class="mb-2">Total En Venta: <span class="text-dark ms-sm-2 font-weight-bold">$ 502,000.00</span></span>
-                <span class="mb-2">Total NETO: <span class="text-dark ms-sm-2 font-weight-bold">$ 502,000.00</span></span>
-                <hr>
-                <span class="text-dark font-weight-bold">Total Entregado: <span class="text-dark ms-sm-2 font-weight-bold">$ 252,000.00</span></span>
-              </div>
-              <div class="ms-auto text-end">
-                <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="javascript:;"><i class="material-symbols-rounded text-sm me-2">delete</i>Delete</a>
-                <a class="btn btn-link text-dark px-3 mb-0" href="javascript:;"><i class="material-symbols-rounded text-sm me-2">edit</i>Edit</a>
-              </div>
-            </li>
+          <ul class="list-group final-production">
+            
           </ul>
         </div>
       </div>
@@ -160,6 +146,11 @@
   <script async defer src="./assets/js/buttons.js"></script>
   <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="./assets/js/material-dashboard.min.js?v=3.2.0"></script>
+
+  <script src="./assets/js/alerts.js"></script>
+  <script src="./server/utils/axios.min.js"></script>
+  <script src="./server/server-connect.js"></script>
+  <script src="./server/validator.js"></script>
 </body>
 
 </html>

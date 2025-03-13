@@ -289,7 +289,7 @@ if (simplified) {
 const bodyNameset = document.querySelector('body').getAttribute('nameset');
 
 if (bodyNameset == "index") {
-  downloadAllData().catch(() => {
+  downloadAllData().catch((err) => {
     setTimeout(() => {
       loadingToast.close();
 
@@ -310,6 +310,66 @@ if (bodyNameset == "index") {
       Swal.showLoading();
     }
   })
+}
+
+if(bodyNameset == "produccion"){
+  let finalProduction = converterArray(JSON.parse(localStorage.getItem('acape/production')));
+  finalProduction.sort((a, b) => new Date(b) - new Date(a)).reverse();
+
+
+  document.querySelector('.final-production').innerHTML = finalProduction.map(ch => {
+
+    return `
+    <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
+              <div class="d-flex flex-column">
+                <h6 class="mb-3">${formatearFecha(ch.date)}</h6>
+                <span class="mb-2">Gastos Indirectos: <span class="text-danger font-weight-bold ms-sm-2">$ ${formatNumber(ch.data.finalPrice.totallyIndirectos)}</span></span>
+                <span class="mb-2">Gastos Materia Prima: <span class="text-danger font-weight-bold ms-sm-2">$ ${formatNumber(ch.data.finalPrice.costo)}</span></span>
+                <span class="mb-2">Total En Venta: <span class="text-success ms-sm-2 font-weight-bold">$ ${formatNumber(ch.data.finalPrice.ingreso)}</span></span>
+                <span class="mb-2 text-dark font-weight-bold text-success">Total NETO: <span class="text-dark ms-sm-2 font-weight-bold">$ ${formatNumber(ch.data.finalPrice.ingreso - ch.data.finalPrice.totallyIndirectos - ch.data.finalPrice.costo)}</span></span>
+              </div>
+            </li>
+  `;
+  });
+}
+
+if(bodyNameset == "bills"){
+  let finalProduction = converterArray(JSON.parse(localStorage.getItem('acape/accounting')).movements).reverse();
+
+  document.querySelector('.movements-acape').innerHTML = finalProduction.map(ch => {
+
+    if (ch.sign == "-") {
+      return `
+        <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
+          <div class="d-flex align-items-center">
+            <button class="btn btn-icon-only btn-rounded btn-outline-danger mb-0 me-3 p-3 btn-sm d-flex align-items-center justify-content-center"><i class="material-symbols-rounded text-lg">expand_more</i></button>
+            <div class="d-flex flex-column">
+              <h6 class="mb-1 text-dark text-sm">${ch.type}</h6>
+              <span class="text-xs">${new Date(ch.date)}</span>
+            </div>
+          </div>
+          <div class="d-flex align-items-center text-danger text-gradient text-sm font-weight-bold">
+            $ ${formatNumber(ch.money)}
+          </div>
+        </li>
+      `
+    } else {
+      return `
+        <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
+            <div class="d-flex align-items-center">
+              <button class="btn btn-icon-only btn-rounded btn-outline-success mb-0 me-3 p-3 btn-sm d-flex align-items-center justify-content-center"><i class="material-symbols-rounded text-lg">expand_less</i></button>
+              <div class="d-flex flex-column">
+                <h6 class="mb-1 text-dark text-sm">${ch.type}</h6>
+                <span class="text-xs">${new Date(ch.date)}</span>
+              </div>
+            </div>
+            <div class="d-flex align-items-center text-success text-gradient text-sm font-weight-bold">
+              $ ${formatNumber(ch.money)}
+            </div>
+          </li>
+      `;
+    }
+  }).join('');
 }
 
 function organizarPorDia(datos) {
@@ -379,11 +439,8 @@ if (finalCajas_log) {
 
   let simpleCaja = organizarPorDia(finalDataToHTML);
 
-  console.log(simpleCaja)
-
 
   finalCajas_log.innerHTML = simpleCaja.map(ch => {
-    console.log(ch)
 
     return `<div class="card mt-2">
             <div class="card-header pb-0 px-3">

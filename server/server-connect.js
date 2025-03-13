@@ -6,7 +6,8 @@ class serverConnect {
         baseURL: "https://amazing-morally-yak.ngrok-free.app",
         headers: {
           "ngrok-skip-browser-warning": "true"
-        }
+        },
+        timeout: 600000
     });
     this.serverConnect = false;
   }
